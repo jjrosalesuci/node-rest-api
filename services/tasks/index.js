@@ -15,6 +15,7 @@ class TaskService {
         }
         return false;
     }
+    
     delete (taskId) {
         const taskIndex = this.tasks.findIndex(taskCursor => taskCursor.id == taskId);
         if (taskIndex > -1) {
