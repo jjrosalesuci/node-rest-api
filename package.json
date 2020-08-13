@@ -1,12 +1,12 @@
 {
   "name": "rest-api",
   "version": "1.0.0",
-  "description": "Primera rest api",
+  "description": "Node Rest Api",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Juan José Rosales Rodríguez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
