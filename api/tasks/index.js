@@ -1,16 +1,29 @@
 const router = require('express').Router();
-const taskService = require('../../services/tasks');
+const { validationResult } = require('express-validator');
 
-router.post('/', (req, res) => {
+const taskService = require('../../services/tasks');
+const { urlParamValidator, taskValidator} = require('./validators');
+
+router.post('/', taskValidator, (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const newTask = req.body;
     taskService.add(newTask);
     return res.sendStatus(201);
 });
 
-router.put('/:id', (req, res) => {
-    const raskId = req.params.id;
+router.put('/:id', urlParamValidator, taskValidator, (req, res) => {
+    const taskId = req.params.id;
     const task = req.body;
-    if (taskService.update(raskId, task)) {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    if (taskService.update(taskId, task)) {
       return res.sendStatus(200);
     }
     return res.sendStatus(204);
